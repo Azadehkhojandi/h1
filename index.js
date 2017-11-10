@@ -1,19 +1,18 @@
 'use strict';
 
-console.log('azadeh container test - update2');
 
 const express = require('express');
 
 // Constants
-const PORT = 8080;
-const HOST = '0.0.0.0';
+const PORT = process.env.port || 8080;
+
 
 // App
 const app = express();
 app.get('/', (req, res) => {
-  console.log('test');
-  res.send('Hello world\n');
+  console.log(new Date().toUTCString());
+  res.send('Hello world!');
 });
 
 
-app.listen(PORT, HOST,()=>console.log(`Running on http://${HOST}:${PORT}`));
+app.listen(PORT, () => console.log(`Running on ${PORT}`));
