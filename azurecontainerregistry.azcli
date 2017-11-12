@@ -1,0 +1,11 @@
+az --version
+az login
+az group create --name containerregistrygroup --location westus
+az acr create --resource-group containerregistrygroup --name myazurecontainerimageregistry --sku Basic --admin-enabled true
+az acr login --name myazurecontainerimageregistry 
+az acr show --name myazurecontainerimageregistry  --query loginServer --output table
+docker images
+docker tag azadehkhojandi/helloworld:t1 myazurecontainerimageregistry.azurecr.io/azadehkhojandi/helloworld:t1
+docker push myazurecontainerimageregistry.azurecr.io/azadehkhojandi/helloworld:t1
+
+

@@ -1,0 +1,26 @@
+az --version
+az login
+
+az group create --name myHelloWorldResourceGroup --location westus
+az appservice plan create --name myLinuxAppServicePlan --resource-group myHelloWorldResourceGroup --sku S1 --is-linux
+
+az webapp create --name helloworldonlinuxfromHub  --deployment-container-image-name azadehkhojandi/helloworld:t1  --resource-group myHelloWorldResourceGroup --plan myLinuxAppServicePlan  
+az webapp config appsettings set  --name helloworldonlinuxfromHub --settings WEBSITES_PORT=8080 --resource-group myHelloWorldResourceGroup
+
+az acr login --name myazurecontainerimageregistry 
+az acr show --name myazurecontainerimageregistry   --query loginServer
+az acr credential show --name myazurecontainerimageregistry    --query "passwords[0].value"
+
+az webapp create --name helloworldonlinuxfromAcr   --deployment-container-image-name myazurecontainerimageregistry.azurecr.io/azadehkhojandi/helloworld:t1 --resource-group myHelloWorldResourceGroup --plan myLinuxAppServicePlan 
+az webapp config container set --name helloworldonlinuxfromAcr --resource-group myHelloWorldResourceGroup  --docker-custom-image-name azadehkhojandi/helloworld:t1 --docker-registry-server-password password --docker-registry-server-url myazurecontainerimageregistry.azurecr.io --docker-registry-server-user myazurecontainerimageregistry --enable-app-service-storage false                             
+az webapp config appsettings set  --name helloworldonlinuxfromAcr --settings  WEBSITES_PORT=8080 --resource-group myHelloWorldResourceGroup
+
+                              
+                               
+
+
+
+
+
+
+

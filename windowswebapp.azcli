@@ -1,0 +1,6 @@
+az --version
+az login
+
+az group create --name myHelloWorldResourceGroup --location westus
+az appservice plan create --name myWindowsAppServicePlan --resource-group myHelloWorldResourceGroup --sku B1 
+az webapp create --resource-group myHelloWorldResourceGroup --plan myWindowsAppServicePlan --name helloworldonwindows  --deployment-local-git
